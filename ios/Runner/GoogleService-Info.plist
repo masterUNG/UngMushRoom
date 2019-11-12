@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>861980123733-ls4qs1ginkb8lf0614utadrde7ptg1nc.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.861980123733-ls4qs1ginkb8lf0614utadrde7ptg1nc</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCBE9HzG3Kr9Iv6ch8qBPKYrgS5GaPZrak</string>
+	<key>GCM_SENDER_ID</key>
+	<string>861980123733</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.flutterthailand.ungmushroom</string>
+	<key>PROJECT_ID</key>
+	<string>ungmushroom</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ungmushroom.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:861980123733:ios:e03df334efee7f5958aadc</string>
+	<key>DATABASE_URL</key>
+	<string>https://ungmushroom.firebaseio.com</string>
+</dict>
+</plist>
