@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:ungmushroom/utility/my_style.dart';
 import 'package:ungmushroom/widget/control.dart';
 import 'package:ungmushroom/widget/monitor.dart';
 import 'package:ungmushroom/widget/setting.dart';
+// import 'package:webview_flutter/webview_flutter.dart';
 
 class MyService extends StatefulWidget {
   @override
@@ -12,6 +15,7 @@ class MyService extends StatefulWidget {
 class _MyServiceState extends State<MyService> {
   // Field
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  // final Completer<WebViewController> _controller = Completer<WebViewController>();
 
   // Method
   Widget hambargerButton() {
@@ -68,6 +72,16 @@ class _MyServiceState extends State<MyService> {
       ),
     );
   }
+
+  // Widget showWebView() {
+  //   return WebView(
+  //       initialUrl: 'https://www.androidthai.in.th',
+  //       javascriptMode: JavascriptMode.disabled,
+  //       onWebViewCreated: (WebViewController webViewController){
+  //         _controller.complete(webViewController);
+  //       },
+  //     );
+  // }
 
   @override
   Widget build(BuildContext context) {
