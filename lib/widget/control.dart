@@ -11,15 +11,12 @@ class _ControlState extends State<Control> {
 
   // Method
   Widget switchMode() {
-    return Container(color: Colors.grey,
-      width: 100.0,
-      child: Switch(
+    return Switch(
         value: modeBool,
         onChanged: (bool value) {
           changeBool(value);
         },
-      ),
-    );
+      );
   }
 
   void changeBool(bool value) {
@@ -31,7 +28,7 @@ class _ControlState extends State<Control> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Center(
       child: switchMode(),
     );
   }
