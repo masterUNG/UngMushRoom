@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ungmushroom/screens/my_service.dart';
+import 'package:ungmushroom/utility/my_dialog.dart';
 import 'package:ungmushroom/utility/my_style.dart';
 
 class Home extends StatefulWidget {
@@ -8,8 +11,25 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   // Field
+  String email, password;
+  final formKey = GlobalKey<FormState>();
 
   // Method
+  @override
+  void initState() { 
+    super.initState();
+    checkStatus();
+  }
+
+  Future<void> checkStatus()async{
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    FirebaseUser firebaseUser = await firebaseAuth.currentUser();
+    if (firebaseUser != null) {
+      moveToMyService();
+    }
+  }
+
+
   Widget loginButton() {
     return Container(
       width: 250.0,
@@ -25,9 +45,40 @@ class _HomeState extends State<Home> {
           'Login',
           style: TextStyle(color: Colors.white),
         ),
-        onPressed: () {},
+        onPressed: () {
+          print('You Click Login');
+          formKey.currentState.save();
+          print('email = $email, password = $password');
+          registerThread();
+        },
       ),
     );
+  }
+
+  Future<void> registerThread() async {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    await firebaseAuth
+        .signInWithEmailAndPassword(email: email, password: password)
+        .then((var response) {
+      moveToMyService();
+    }).catchError((var response) {
+      print('response = $response');
+      String title = response.code;
+      String message = response.message;
+      print('title = $title, message = $message');
+      normalDialog(context, title, message);
+    });
+  }
+
+  void moveToMyService() {
+    MaterialPageRoute materialPageRoute =
+        MaterialPageRoute(builder: (BuildContext context) {
+      return MyService();
+    });
+    Navigator.of(context).pushAndRemoveUntil(materialPageRoute,
+        (Route<dynamic> route) {
+      return false;
+    });
   }
 
   Widget emailText() {
@@ -46,6 +97,9 @@ class _HomeState extends State<Home> {
           labelStyle: TextStyle(color: MyStyle().textColor),
           hintText: 'you@email.com',
         ),
+        onSaved: (String value) {
+          email = value.trim();
+        },
       ),
     );
   }
@@ -67,6 +121,9 @@ class _HomeState extends State<Home> {
           labelStyle: TextStyle(color: MyStyle().textColor),
           hintText: 'More 6 Charactor',
         ),
+        onSaved: (String value) {
+          password = value.trim();
+        },
       ),
     );
   }
@@ -108,21 +165,24 @@ class _HomeState extends State<Home> {
               child: Container(
                 padding: EdgeInsets.all(20.0),
                 color: Color.fromARGB(150, 255, 255, 255),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    showLogo(),
-                    SizedBox(
-                      height: 16.0,
-                    ),
-                    showAppName(),
-                    emailText(),
-                    passwordText(),
-                    SizedBox(
-                      height: 8.0,
-                    ),
-                    loginButton(),
-                  ],
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      showLogo(),
+                      SizedBox(
+                        height: 16.0,
+                      ),
+                      showAppName(),
+                      emailText(),
+                      passwordText(),
+                      SizedBox(
+                        height: 8.0,
+                      ),
+                      loginButton(),
+                    ],
+                  ),
                 ),
               ),
             ),

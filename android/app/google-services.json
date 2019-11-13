@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "861980123733",
+    "firebase_url": "https://ungmushroom.firebaseio.com",
+    "project_id": "ungmushroom",
+    "storage_bucket": "ungmushroom.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861980123733:android:3a3fdd2c4930d2ba58aadc",
+        "android_client_info": {
+          "package_name": "com.flutterthailand.ungmushroom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861980123733-sq41mrhanglqsdbcqolkj2d3mahh4gld.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQ-RQDV68yyJH0R9cpthChyNwH3Phcsis"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861980123733-sq41mrhanglqsdbcqolkj2d3mahh4gld.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
