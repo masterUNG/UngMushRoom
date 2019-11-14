@@ -1,4 +1,6 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:ungmushroom/models/iot_model.dart';
 
 class Control extends StatefulWidget {
   @override
@@ -13,7 +15,64 @@ class _ControlState extends State<Control> {
       waterBool = false,
       lightBool = false;
 
+  IotModel iotModel;
+
   // Method
+  @override
+  void initState() {
+    super.initState();
+    readDatabase();
+  }
+
+  Future<void> readDatabase() async {
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.instance;
+    DatabaseReference databaseReference =
+        firebaseDatabase.reference().child('IoT');
+    await databaseReference.once().then((DataSnapshot dataSnapshot) {
+      print('dataSnapshot = ${dataSnapshot.value}');
+      iotModel = IotModel.formMap(dataSnapshot.value);
+      // print('mode = ${iotModel.mode}');
+      checkSwitch();
+    });
+  }
+
+  void checkSwitch() {
+    setState(() {
+      if (iotModel.mode == 0) {
+      modeBool = false;
+    } else {
+      modeBool = true;
+    }
+
+    if (iotModel.fog == 0) {
+      fogBool = false;
+    } else {
+      fogBool = true;
+    }
+
+    if (iotModel.fan == 0) {
+      fanBool = false;
+    } else {
+      fanBool = true;
+    }
+
+    if (iotModel.water == 0) {
+      waterBool = false;
+    } else {
+      waterBool = true;
+    }
+
+    if (iotModel.light == 0) {
+      lightBool = false;
+    } else {
+      lightBool = true;
+    }
+    });
+
+    print(
+        'Mode = $modeBool, Fog = $fogBool, Fan = $fanBool, Water = $waterBool, light = $lightBool');
+  }
+
   Widget switchMode() {
     return Card(
       child: Container(
@@ -50,7 +109,7 @@ class _ControlState extends State<Control> {
               children: <Widget>[
                 Text('off'),
                 Switch(
-                  value: modeBool,
+                  value: fogBool,
                   onChanged: (bool value) {
                     changeBool(value);
                   },
@@ -75,7 +134,7 @@ class _ControlState extends State<Control> {
               children: <Widget>[
                 Text('off'),
                 Switch(
-                  value: modeBool,
+                  value: fanBool,
                   onChanged: (bool value) {
                     changeBool(value);
                   },
@@ -100,7 +159,7 @@ class _ControlState extends State<Control> {
               children: <Widget>[
                 Text('off'),
                 Switch(
-                  value: modeBool,
+                  value: waterBool,
                   onChanged: (bool value) {
                     changeBool(value);
                   },
@@ -125,7 +184,7 @@ class _ControlState extends State<Control> {
               children: <Widget>[
                 Text('off'),
                 Switch(
-                  value: modeBool,
+                  value: lightBool,
                   onChanged: (bool value) {
                     changeBool(value);
                   },
@@ -179,7 +238,8 @@ class _ControlState extends State<Control> {
     return Container(
       decoration: BoxDecoration(
         gradient: RadialGradient(
-          colors: [Colors.white, Colors.brown.shade800],radius: 1.0,
+          colors: [Colors.white, Colors.brown.shade800],
+          radius: 1.0,
         ),
       ),
       child: Center(
