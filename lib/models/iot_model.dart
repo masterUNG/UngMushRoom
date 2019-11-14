@@ -39,4 +39,24 @@ class IotModel {
     humidityHigh = map['Humidity_High'];
     mode = map['Mode'];
   }
+
+  Map<dynamic, dynamic> toMap(){
+    final Map<dynamic, dynamic> map = Map<dynamic, dynamic>();
+    map['Suitable_Tem'] = suitableTem;
+    map['Water'] = water;
+    map['Suitable_Humi'] = suitableHumi;
+    map['Light'] = light;
+    map['Fog'] = fog;
+    map['Temp_High'] = tempHigh;
+    map['Fan'] = fan;
+    map['Humidity_Low'] = humidityLow;
+    map['Temp_Low'] = tempLow;
+    map['Humidity_High'] = humidityHigh;
+    map['Mode'] = mode;
+
+    return map;
+
+  }
+
+
 }
