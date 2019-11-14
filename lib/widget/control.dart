@@ -7,15 +7,135 @@ class Control extends StatefulWidget {
 
 class _ControlState extends State<Control> {
   // Field
-  bool modeBool = false;
+  bool modeBool = false,
+      fogBool = false,
+      fanBool = false,
+      waterBool = false,
+      lightBool = false;
 
   // Method
   Widget switchMode() {
-    return Switch(
-      value: modeBool,
-      onChanged: (bool value) {
-        changeBool(value);
-      },
+    return Card(
+      child: Container(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          children: <Widget>[
+            Text('Mode'),
+            Row(
+              children: <Widget>[
+                Text('Auto'),
+                Switch(
+                  value: modeBool,
+                  onChanged: (bool value) {
+                    changeBool(value);
+                  },
+                ),
+                Text('Manual')
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget switchFog() {
+    return Card(
+      child: Container(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          children: <Widget>[
+            Text('Fog'),
+            Row(
+              children: <Widget>[
+                Text('off'),
+                Switch(
+                  value: modeBool,
+                  onChanged: (bool value) {
+                    changeBool(value);
+                  },
+                ),
+                Text('on')
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget switchFan() {
+    return Card(
+      child: Container(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          children: <Widget>[
+            Text('Fan'),
+            Row(
+              children: <Widget>[
+                Text('off'),
+                Switch(
+                  value: modeBool,
+                  onChanged: (bool value) {
+                    changeBool(value);
+                  },
+                ),
+                Text('on')
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget switchWater() {
+    return Card(
+      child: Container(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          children: <Widget>[
+            Text('Water'),
+            Row(
+              children: <Widget>[
+                Text('off'),
+                Switch(
+                  value: modeBool,
+                  onChanged: (bool value) {
+                    changeBool(value);
+                  },
+                ),
+                Text('on')
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget switchLight() {
+    return Card(
+      child: Container(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          children: <Widget>[
+            Text('Light'),
+            Row(
+              children: <Widget>[
+                Text('off'),
+                Switch(
+                  value: modeBool,
+                  onChanged: (bool value) {
+                    changeBool(value);
+                  },
+                ),
+                Text('on')
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -26,12 +146,20 @@ class _ControlState extends State<Control> {
     });
   }
 
+  Widget modeRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[switchMode()],
+    );
+  }
+
   Widget topRow() {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        switchMode(),
-        switchMode(),
+        switchFog(),
+        switchFan(),
       ],
     );
   }
@@ -40,21 +168,29 @@ class _ControlState extends State<Control> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        switchMode(),
-        switchMode(),
+        switchWater(),
+        switchLight(),
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          topRow(),
-          bottonRow(),
-        ],
+    return Container(
+      decoration: BoxDecoration(
+        gradient: RadialGradient(
+          colors: [Colors.white, Colors.brown.shade800],radius: 1.0,
+        ),
+      ),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            modeRow(),
+            topRow(),
+            bottonRow(),
+          ],
+        ),
       ),
     );
   }
