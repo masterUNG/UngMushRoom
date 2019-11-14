@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:ungmushroom/models/iot_model.dart';
+import 'package:ungmushroom/utility/my_style.dart';
 
 class Setting extends StatefulWidget {
   @override
@@ -73,7 +74,7 @@ class _SettingState extends State<Setting> {
         initialValue: humLow,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-          helperText: 'current: $humLow',
+          helperText: 'current: $humLow',helperStyle: MyStyle().red18,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(),
           ),
