@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 // import 'package:webview_flutter/webview_flutter.dart';
 
 class Monitor extends StatefulWidget {
@@ -19,17 +20,7 @@ class _MonitorState extends State<Monitor> {
       humiGageUrl = 'https://thingspeak.com/channels/662286/widgets/93495',
       temGageUrl = 'https://thingspeak.com/channels/662286/widgets/93565';
 
-  // Method
-  // Widget showWebView(String url) {
-  //   return Container(
-  //     // width: 200.0,
-  //     // height: 200.0,
-  //     child: WebView(
-  //       initialUrl: url,
-  //       javascriptMode: JavascriptMode.unrestricted,
-  //     ),
-  //   );
-  // }
+  FlutterWebviewPlugin flutterWebviewPlugin = FlutterWebviewPlugin();
 
   Widget showAllGade() {
     return Container(
@@ -42,8 +33,24 @@ class _MonitorState extends State<Monitor> {
     );
   }
 
+  Widget showTestWebView() {
+    return WebviewScaffold(
+      url: humiGageUrl,
+      hidden: true,
+      withJavascript: true,
+      withZoom: false,
+      initialChild: Container(
+        child: Center(
+          child: Text(''),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Monitor'),);
+    return Scaffold(
+      body: Text('Monitor'),
+    );
   }
 }

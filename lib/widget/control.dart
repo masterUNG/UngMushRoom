@@ -12,11 +12,11 @@ class _ControlState extends State<Control> {
   // Method
   Widget switchMode() {
     return Switch(
-        value: modeBool,
-        onChanged: (bool value) {
-          changeBool(value);
-        },
-      );
+      value: modeBool,
+      onChanged: (bool value) {
+        changeBool(value);
+      },
+    );
   }
 
   void changeBool(bool value) {
@@ -26,10 +26,36 @@ class _ControlState extends State<Control> {
     });
   }
 
+  Widget topRow() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        switchMode(),
+        switchMode(),
+      ],
+    );
+  }
+
+  Widget bottonRow() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        switchMode(),
+        switchMode(),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: switchMode(),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          topRow(),
+          bottonRow(),
+        ],
+      ),
     );
   }
 }
