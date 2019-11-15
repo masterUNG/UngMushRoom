@@ -94,14 +94,24 @@ class _MonitorState extends State<Monitor> {
     );
   }
 
-  WebController webController;
+  WebController webController, webController2;
 
   void onWebCreated(webController) {
     this.webController = webController;
-    this.webController.loadUrl(url1);
+    this.webController.loadUrl(humiGageUrl);
     this.webController.onPageStarted.listen((url) => print("Loading $url"));
     this
         .webController
+        .onPageFinished
+        .listen((url) => print("Finished loading $url"));
+  }
+
+  void onWebCreated2(webController2) {
+    this.webController2 = webController2;
+    this.webController2.loadUrl(url1);
+    this.webController2.onPageStarted.listen((url) => print("Loading $url"));
+    this
+        .webController2
         .onPageFinished
         .listen((url) => print("Finished loading $url"));
   }
@@ -110,8 +120,19 @@ class _MonitorState extends State<Monitor> {
 
   @override
   Widget build(BuildContext context) {
+
+
     FlutterNativeWeb flutterWebView = new FlutterNativeWeb(
       onWebCreated: onWebCreated,
+      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
+        Factory<OneSequenceGestureRecognizer>(
+          () => TapGestureRecognizer(),
+        ),
+      ].toSet(),
+    );
+
+    FlutterNativeWeb flutterWebView2 = new FlutterNativeWeb(
+      onWebCreated: onWebCreated2,
       gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
         Factory<OneSequenceGestureRecognizer>(
           () => TapGestureRecognizer(),
@@ -126,6 +147,10 @@ class _MonitorState extends State<Monitor> {
         children: <Widget>[
           Container(
             child: Text('Test'),
+          ),Container(
+            child: flutterWebView2,
+            height: 300.0,
+            width: 500.0,
           ),Container(
             child: flutterWebView,
             height: 300.0,
