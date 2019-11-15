@@ -20,10 +20,12 @@ class _MonitorState extends State<Monitor> {
       humiGageUrl = 'https://thingspeak.com/channels/662286/widgets/93495',
       temGageUrl = 'https://thingspeak.com/channels/662286/widgets/93565';
 
-      String test1 = 'https://www.androidthai.in.th/pint/test1.html';
-      String test2 = 'https://www.androidthai.in.th';
+  String test1 = 'https://www.androidthai.in.th/pint/test1.html';
+  String test2 = 'https://www.androidthai.in.th';
 
   FlutterWebviewPlugin flutterWebviewPlugin = FlutterWebviewPlugin();
+
+  String currentGraph = 'https://www.androidthai.in.th';
 
   Widget showAllGade() {
     return Container(
@@ -42,10 +44,10 @@ class _MonitorState extends State<Monitor> {
     );
 
     return WebviewScaffold(
-      url: test2,
+      url: currentGraph,
       hidden: true,
       withJavascript: true,
-      withZoom: false,
+      withZoom: true,
       initialChild: Container(
         child: Center(
           child: Text(''),
@@ -54,11 +56,32 @@ class _MonitorState extends State<Monitor> {
     );
   }
 
+  Future<void> hideWebView() async {
+    flutterWebviewPlugin.hide();
+  }
+
+  Widget url1Button() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        RaisedButton(
+          child: Text('Url1'),
+          onPressed: () {
+            setState(() {
+              currentGraph = url1;
+              flutterWebviewPlugin.reloadUrl(currentGraph);
+              // flutterWebviewPlugin.hide();
+            });
+          },
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-       
         alignment: AlignmentDirectional(0.0, 1.0),
         child: Container(
           color: Colors.green,
@@ -66,7 +89,12 @@ class _MonitorState extends State<Monitor> {
             width: 300.0,
             height: 300.0,
           ),
-          child: showTestWebView(),
+          child: Stack(
+            children: <Widget>[
+              // showTestWebView(),
+              url1Button(),
+            ],
+          ),
         ),
       ),
     );
