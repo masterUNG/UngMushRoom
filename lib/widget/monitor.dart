@@ -20,6 +20,9 @@ class _MonitorState extends State<Monitor> {
       humiGageUrl = 'https://thingspeak.com/channels/662286/widgets/93495',
       temGageUrl = 'https://thingspeak.com/channels/662286/widgets/93565';
 
+      String test1 = 'https://www.androidthai.in.th/pint/test1.html';
+      String test2 = 'https://www.androidthai.in.th';
+
   FlutterWebviewPlugin flutterWebviewPlugin = FlutterWebviewPlugin();
 
   Widget showAllGade() {
@@ -34,8 +37,12 @@ class _MonitorState extends State<Monitor> {
   }
 
   Widget showTestWebView() {
+    flutterWebviewPlugin.launch(
+      humiGageUrl,
+    );
+
     return WebviewScaffold(
-      url: humiGageUrl,
+      url: test2,
       hidden: true,
       withJavascript: true,
       withZoom: false,
@@ -50,7 +57,18 @@ class _MonitorState extends State<Monitor> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text('Monitor'),
+      body: Container(
+       
+        alignment: AlignmentDirectional(0.0, 1.0),
+        child: Container(
+          color: Colors.green,
+          constraints: BoxConstraints.expand(
+            width: 300.0,
+            height: 300.0,
+          ),
+          child: showTestWebView(),
+        ),
+      ),
     );
   }
 }
