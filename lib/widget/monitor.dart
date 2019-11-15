@@ -1,5 +1,9 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_web/flutter_native_web.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:ungmushroom/widget/test_web.dart';
 // import 'package:webview_flutter/webview_flutter.dart';
 
 class Monitor extends StatefulWidget {
@@ -27,6 +31,18 @@ class _MonitorState extends State<Monitor> {
 
   String currentGraph = 'https://www.androidthai.in.th';
 
+  Widget webViewShow = WebviewScaffold(
+    url: 'https://www.androidthai.in.th',
+    hidden: true,
+    withJavascript: true,
+    withZoom: true,
+    initialChild: Container(
+      child: Center(
+        child: Text(''),
+      ),
+    ),
+  );
+
   Widget showAllGade() {
     return Container(
       // padding: EdgeInsets.all(20.0),
@@ -43,8 +59,8 @@ class _MonitorState extends State<Monitor> {
       humiGageUrl,
     );
 
-    return WebviewScaffold(
-      url: currentGraph,
+    return webViewShow = WebviewScaffold(
+      url: url1,
       hidden: true,
       withJavascript: true,
       withZoom: true,
@@ -78,24 +94,45 @@ class _MonitorState extends State<Monitor> {
     );
   }
 
+  WebController webController;
+
+  void onWebCreated(webController) {
+    this.webController = webController;
+    this.webController.loadUrl(url1);
+    this.webController.onPageStarted.listen((url) => print("Loading $url"));
+    this
+        .webController
+        .onPageFinished
+        .listen((url) => print("Finished loading $url"));
+  }
+
+  
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        alignment: AlignmentDirectional(0.0, 1.0),
-        child: Container(
-          color: Colors.green,
-          constraints: BoxConstraints.expand(
-            width: 300.0,
-            height: 300.0,
-          ),
-          child: Stack(
-            children: <Widget>[
-              // showTestWebView(),
-              url1Button(),
-            ],
-          ),
+    FlutterNativeWeb flutterWebView = new FlutterNativeWeb(
+      onWebCreated: onWebCreated,
+      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
+        Factory<OneSequenceGestureRecognizer>(
+          () => TapGestureRecognizer(),
         ),
+      ].toSet(),
+    );
+
+    
+
+    return Scaffold(
+      body: ListView(
+        children: <Widget>[
+          Container(
+            child: Text('Test'),
+          ),Container(
+            child: flutterWebView,
+            height: 300.0,
+            width: 500.0,
+          ),
+          
+        ],
       ),
     );
   }
